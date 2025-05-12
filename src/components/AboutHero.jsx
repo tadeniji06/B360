@@ -1,4 +1,4 @@
-import { hero, about } from "../assets";
+import { hero, about, abH } from "../assets";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 

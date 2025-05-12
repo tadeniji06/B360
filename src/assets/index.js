@@ -15,9 +15,27 @@ import service from "./serviceH.png";
 import it from "./IT.png";
 import bizz from "./bizz.png";
 import contact from "./contact.png";
-
+import facebook from "./facebook.png";
+import mac from "./mac.png";
+import slack from "./slack.png";
+import ene from "./ene.png";
+import red from "./red.png";
+import abH from "./abH.png";
+import vision from "./vision.png";
+import ino from "./ino.png";
+import int from "./int.png";
+import emp from "./emp.png";
+import col from "./col.png";
 export {
   logo,
+  vision,
+  abH,
+  ino,
+  int, 
+  emp,
+  col,
+  red,
+  ene,
   hero,
   heroM,
   apart,
@@ -34,4 +52,7 @@ export {
   it,
   bizz,
   contact,
+  facebook,
+  mac,
+  slack,
 };

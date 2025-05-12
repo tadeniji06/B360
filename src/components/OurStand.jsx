@@ -1,138 +1,122 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { Icon } from "@iconify/react";
 
 const OurStand = () => {
-  // Values data array for easier management
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1
+  });
+
+  // Values data array with Iconify icons
   const values = [
     {
-      number: "01",
+      icon: "mdi:lightbulb",
       title: "Innovation",
       description: "We embrace creativity and always strive for continuous improvement."
     },
     {
-      number: "02",
+      icon: "mdi:shield-check",
       title: "Integrity",
       description: "We operate transparently, ethically, and with respect for every client."
     },
     {
-      number: "03",
+      icon: "mdi:hand-heart",
       title: "Empowerment",
       description: "We are committed to empowering African businesses to thrive and succeed."
     },
     {
-      number: "04",
+      icon: "mdi:account-group",
       title: "Collaboration",
       description: "We believe in the power of teamwork and working together for success."
     }
   ];
 
-  // Create ref for section animation
-  const [sectionRef, sectionInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  });
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
 
   return (
-    <motion.div 
-      className='py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-slate-200 to-blue-900/20 overflow-hidden'
-      ref={sectionRef}
-      initial={{ opacity: 0 }}
-      animate={sectionInView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.6 }}
+    <div 
+      ref={ref}
+      className='py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-bold-blue relative overflow-hidden'
     >
-      <div className='max-w-7xl mx-auto'>
-        {/* Header Section with Animation */}
+      {/* Decorative elements for the background */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-primary-yellow opacity-10 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-400 opacity-10 rounded-full translate-y-1/2 -translate-x-1/3 blur-3xl"></div>
+      
+      <div className='max-w-7xl mx-auto relative z-10'>
+        {/* Header Section */}
         <motion.div 
-          className='mb-10 text-center md:text-left'
-          initial={{ y: 50, opacity: 0 }}
-          animate={sectionInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          className='mb-12 md:mb-16 text-center'
+          initial={{ opacity: 0, y: -20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+          transition={{ duration: 0.6 }}
         >
-          <div className='text-2xl sm:text-3xl md:text-4xl font-bold mb-4 flex flex-col md:flex-row md:items-center gap-2'>
-            <motion.h2 
-              className='text-bold-blue'
-              initial={{ x: -20, opacity: 0 }}
-              animate={sectionInView ? { x: 0, opacity: 1 } : { x: -20, opacity: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              What we
-            </motion.h2>
-            <motion.h2 
-              className='text-gray-500'
-              initial={{ x: 20, opacity: 0 }}
-              animate={sectionInView ? { x: 0, opacity: 1 } : { x: 20, opacity: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-            >
-              stand for
-            </motion.h2>
+          <div className='inline-block mb-2'>
+            <div className='h-1 w-20 bg-primary-yellow mx-auto'></div>
           </div>
-          <motion.p 
-            className='text-gray-600 text-base sm:text-lg max-w-2xl'
-            initial={{ opacity: 0 }}
-            animate={sectionInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
-          >
+          <div className='text-2xl sm:text-3xl md:text-4xl font-bold mb-4 flex flex-col sm:flex-row justify-center items-center gap-2'>
+            <h2 className='text-white'>What we</h2>
+            <h2 className='text-primary-yellow'>stand for</h2>
+          </div>
+          <p className='text-blue-100 text-base sm:text-lg max-w-2xl mx-auto'>
             Our values shape every solution we build and every partnership we grow
-          </motion.p>
+          </p>
         </motion.div>
         
-        {/* Values Grid with Staggered Animation */}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8'>
+        {/* Values Grid */}
+        <motion.div 
+          className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8'
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+        >
           {values.map((value, index) => (
-            <motion.div 
-              key={index} 
-              className='bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex flex-col h-full relative overflow-hidden group'
-              initial={{ opacity: 0, y: 50 }}
-              animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ 
-                duration: 0.5, 
-                delay: 0.3 + (index * 0.2),
-                type: "spring",
-                stiffness: 100
-              }}
-              whileHover={{ 
-                y: -5,
-                transition: { duration: 0.2 }
-              }}
+            <motion.div
+              key={index}
+              className='bg-white/10 backdrop-blur-sm p-6 sm:p-8 rounded-lg shadow-lg hover:shadow-xl border border-white/20 transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1 hover:bg-white/15'
+              variants={itemVariants}
             >
-              {/* Animated background element */}
-              <motion.div 
-                className="absolute -right-10 -bottom-10 w-24 h-24 rounded-full bg-light-blue opacity-0 group-hover:opacity-10"
-                initial={{ scale: 0 }}
-                whileHover={{ scale: 1, transition: { duration: 0.3 } }}
-              />
+              {/* Icon at the top - larger and more visible */}
+              <div className='flex justify-center mb-6'>
+                <div className='w-16 h-16 rounded-full bg-primary-yellow/20 flex items-center justify-center'>
+                  <Icon 
+                    icon={value.icon} 
+                    className="text-primary-yellow" 
+                    width={32} 
+                    height={32} 
+                  />
+                </div>
+              </div>
               
-              <motion.h3 
-                className='text-2xl font-bold text-primary-yellow mb-3 relative z-10'
-                initial={{ scale: 0.8 }}
-                whileInView={{ scale: 1 }}
-                transition={{ duration: 0.3, delay: 0.1 + (index * 0.1) }}
-              >
-                {value.number}
-              </motion.h3>
+              <h4 className='text-xl font-semibold text-white mb-3 text-center'>{value.title}</h4>
+              <p className='text-blue-100 flex-grow text-center'>{value.description}</p>
               
-              <motion.h4 
-                className='text-xl font-semibold text-bold-blue mb-3 relative z-10'
-                initial={{ opacity: 0, x: -10 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: 0.2 + (index * 0.1) }}
-              >
-                {value.title}
-              </motion.h4>
-              
-              <motion.p 
-                className='text-gray-600 flex-grow relative z-10'
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.3 + (index * 0.1) }}
-              >
-                {value.description}
-              </motion.p>
+              <div className='mt-4 w-12 h-1 bg-primary-yellow/50 mx-auto'></div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -80,7 +80,7 @@ const ServicesHero = () => {
         </div>
       </motion.div>
       
-      <div className='w-full' ref={imageRef}>
+      {/* <div className='w-full' ref={imageRef}>
         <motion.img 
           className='w-full object-cover h-[350px]' 
           src={service} 
@@ -89,7 +89,7 @@ const ServicesHero = () => {
           animate={imageInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8 }}
         />
-      </div>
+      </div> */}
       
       {/* Decorative elements with animations */}
       <motion.div 
