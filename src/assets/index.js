@@ -26,8 +26,14 @@ import ino from "./ino.png";
 import int from "./int.png";
 import emp from "./emp.png";
 import col from "./col.png";
+import work from "./work.png";
+import region from "./region.png";
+import smart from "./smart.png";
 export {
   logo,
+  work,
+  region,
+  smart,
   vision,
   abH,
   ino,
