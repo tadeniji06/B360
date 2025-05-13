@@ -15,7 +15,7 @@ const Footer = () => {
         <div className="md:col-span-1">
           <h2 className="text-2xl font-bold mb-4">B360</h2>
           <p className="text-blue-100 mb-6">
-            Business360 Suite (B360) is a software solutions corporation
+            Business360 (B360) is a software solutions corporation
             focused on developing modular, industry-specific enterprise
             resource management (ERM) systems.
           </p>
