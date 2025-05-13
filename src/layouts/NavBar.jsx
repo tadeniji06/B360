@@ -39,9 +39,11 @@ const NavBar = () => {
 
           {/* CTA Button - Desktop */}
           <div className='hidden md:block'>
-            <button className='bg-white px-4 py-2 rounded-xl border shadow-xl hover:bg-gray-100 transition-colors text-bold-blue font-medium'>
-              Book A Session
-            </button>
+           <Link to={'/contact'}>
+              <button className='bg-white px-4 py-2 rounded-xl border shadow-xl hover:bg-gray-100 transition-colors text-bold-blue font-medium'>
+                Book A Session
+              </button>
+           </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -83,12 +85,14 @@ const NavBar = () => {
               </Link>
             ))}
             <div className="px-3 py-3">
-              <button 
-                className='bg-white w-full px-4 py-2 rounded-xl border shadow-xl hover:bg-gray-100 transition-colors text-bold-blue font-medium'
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Book A Session
-              </button>
+            <Link to={"/contact"}>
+                <button 
+                  className='bg-white w-full px-4 py-2 rounded-xl border shadow-xl hover:bg-gray-100 transition-colors text-bold-blue font-medium'
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Book A Session
+                </button>
+            </Link>
             </div>
           </div>
         </div>

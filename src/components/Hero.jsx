@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { hero, heroM } from "../assets";
 import { motion } from "framer-motion";
 
@@ -61,21 +62,25 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.6 }}
           >
-            <motion.button
-              className='text-white px-6 sm:px-8 py-4 sm:py-5 rounded-xl border border-white hover:bg-white/10 transition-colors font-medium text-base sm:text-lg'
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Learn More
-            </motion.button>
+          <Link to={"/about"}>
+              <motion.button
+                className='text-white px-6 sm:px-8 py-4 sm:py-5 rounded-xl border border-white hover:bg-white/10 transition-colors font-medium text-base sm:text-lg'
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Learn More
+              </motion.button>
+          </Link>
 
-            <motion.button
-              className='bg-white px-6 sm:px-8 py-4 sm:py-5 rounded-xl text-gray-800 hover:bg-gray-100 transition-colors font-medium text-base sm:text-lg'
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Get Started
-            </motion.button>
+           <Link to={"/contact"}>
+              <motion.button
+                className='bg-white px-6 sm:px-8 py-4 sm:py-5 rounded-xl text-gray-800 hover:bg-gray-100 transition-colors font-medium text-base sm:text-lg'
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Get Started
+              </motion.button>
+           </Link>
           </motion.div>
         </motion.div>
       </div>

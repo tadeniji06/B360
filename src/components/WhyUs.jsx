@@ -78,8 +78,8 @@ const WhyUs = () => {
 
         {/* Stacked Features with Alternating Layout */}
         <div className="relative">
-          {/* Curved connecting arrows */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-primary-yellow/20 hidden md:block" style={{ transform: 'translateX(-50%)' }}></div>
+          {/* Curved connecting arrows - Changed from yellow to white */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-white/20 hidden md:block" style={{ transform: 'translateX(-50%)' }}></div>
           
           {features.map((feature, index) => {
             // Determine if this is the last item
@@ -87,7 +87,7 @@ const WhyUs = () => {
             
             return (
               <div key={index} className="relative">
-                {/* Curved arrow (except for the last item) */}
+                {/* Curved arrow (except for the last item) - Changed from yellow to white */}
                 {!isLast && (
                   <div className="hidden md:block absolute left-1/2 z-10" style={{ bottom: '-40px', transform: 'translateX(-50%)' }}>
                     <motion.div
@@ -97,10 +97,10 @@ const WhyUs = () => {
                     >
                       <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <motion.path
-                          d={feature.imagePosition === "right" 
-                            ? "M40 0 C60 20, 60 40, 40 60 C20 80, 60 80, 80 60" 
+                          d={feature.imagePosition === "right"
+                            ? "M40 0 C60 20, 60 40, 40 60 C20 80, 60 80, 80 60"
                             : "M40 0 C20 20, 20 40, 40 60 C60 80, 20 80, 0 60"}
-                          stroke="#FFC107"
+                          stroke="#FFFFFF" // Changed from #FFC107 to #FFFFFF
                           strokeWidth="2"
                           strokeDasharray="4,4"
                           initial={{ pathLength: 0, opacity: 0 }}
@@ -108,10 +108,10 @@ const WhyUs = () => {
                           transition={{ duration: 1, delay: 0.3 * (index + 1) }}
                         />
                         <motion.path
-                          d={feature.imagePosition === "right" 
-                            ? "M75 55 L80 60 L75 65" 
+                          d={feature.imagePosition === "right"
+                            ? "M75 55 L80 60 L75 65"
                             : "M5 55 L0 60 L5 65"}
-                          stroke="#FFC107"
+                          stroke="#FFFFFF" // Changed from #FFC107 to #FFFFFF
                           strokeWidth="2"
                           fill="none"
                           initial={{ opacity: 0 }}
@@ -124,7 +124,7 @@ const WhyUs = () => {
                 )}
                 
                 {/* Feature row with alternating layout */}
-                <motion.div 
+                <motion.div
                   className={`flex flex-col ${feature.imagePosition === "left" ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-8 md:gap-16 py-12 md:py-16`}
                   initial={{ opacity: 0, y: 30 }}
                   animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -143,10 +143,10 @@ const WhyUs = () => {
                       transition={{ duration: 0.3 }}
                     >
                       <div className="absolute transform scale-95 -z-10"></div>
-                      <img 
-                        src={feature.image} 
-                        alt={feature.title} 
-                        className="max-w-full h-auto relative z-10" 
+                      <img
+                        src={feature.image}
+                        alt={feature.title}
+                        className="max-w-full h-auto relative z-10"
                       />
                     </motion.div>
                   </motion.div>
@@ -159,17 +159,17 @@ const WhyUs = () => {
                     transition={{ duration: 0.8, delay: 0.2 * index + 0.5 }}
                   >
                     <div className="flex items-center mb-4">
-                      <div className="w-10 h-10 rounded-full bg-primary-yellow/20 flex items-center justify-center mr-4">
-                        <span className="text-primary-yellow font-bold">0{index + 1}</span>
+                      <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-4">
+                        <span className="text-white font-bold">0{index + 1}</span>
                       </div>
-                      <div className="h-1 flex-grow bg-primary-yellow/30 rounded-full"></div>
+                      <div className="h-1 flex-grow bg-white/30 rounded-full"></div>
                     </div>
                     
                     <h3 className="text-xl md:text-2xl font-bold mb-4">{feature.title}</h3>
                     <p className="text-blue-100 leading-relaxed">{feature.description}</p>
                     
                     <motion.button
-                      className="mt-6 flex items-center text-primary-yellow hover:text-white group"
+                      className="mt-6 flex items-center text-white hover:text-primary-yellow group"
                       whileHover={{ x: 5 }}
                       transition={{ duration: 0.2 }}
                     >

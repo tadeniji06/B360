@@ -1,6 +1,7 @@
 import { red } from "../assets";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { Link } from "react-router-dom";
 
 const GetStarted = () => {
   const [ref, inView] = useInView({
@@ -43,16 +44,18 @@ const GetStarted = () => {
             Join over 20+ businesses using B360 today
           </motion.p>
           
-          <motion.button
-            className='bg-white text-bold-blue px-8 py-4 rounded-xl font-medium text-lg hover:bg-gray-100 transition-colors shadow-lg'
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Book A Session
-          </motion.button>
+        <Link to={'/contact'}>
+            <motion.button
+              className='bg-white text-bold-blue px-8 py-4 rounded-xl font-medium text-lg hover:bg-gray-100 transition-colors shadow-lg'
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Book A Session
+            </motion.button>
+        </Link>
         </div>
       </motion.div>
     </div>

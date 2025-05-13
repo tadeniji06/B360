@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Ready = () => {
   const componentRef = useRef(null);
@@ -123,9 +124,11 @@ const Ready = () => {
             }}
             exit={{ x: "100%" }}
           />
-          <span className='relative z-10 group-hover:text-bold-blue transition-colors'>
-            Book A Session
-          </span>
+       <Link to="/contact" className="flex items-center justify-center">
+            <span className='relative z-10 group-hover:text-bold-blue transition-colors'>
+              Book A Session
+            </span>
+       </Link>
         </motion.button>
       </motion.div>
 
