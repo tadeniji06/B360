@@ -91,14 +91,6 @@ const ServicesHero = () => {
           </motion.div>
         </div>
       </motion.div>
-
-      {/* Decorative elements with animations */}
-      <motion.div
-        className='absolute bottom-0 left-0 w-full h-12 bg-gradient-to-r from-bold-blue via-transparent to-bold-blue opacity-0'
-        animate={heroInView ? { opacity: 0.3 } : { opacity: 0 }}
-        transition={{ duration: 1.2, delay: 0.5 }}
-      ></motion.div>
-
       <motion.div
         className='absolute top-1/4 left-0 w-1 h-0 bg-primary-yellow'
         animate={heroInView ? { height: 96 } : { height: 0 }}

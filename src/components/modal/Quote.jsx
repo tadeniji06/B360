@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
+import "./Quote.css"; // We'll create this file for custom scrollbar
 
 const Quote = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(1);
@@ -21,7 +22,15 @@ const Quote = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
       setStep(1);
+      // Prevent body scrolling when modal is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
     }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
   }, [isOpen]);
 
   const handleChange = (e) => {
@@ -185,27 +194,29 @@ const Quote = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className='fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 overflow-y-auto'>
+    <div className='fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-2 sm:p-4 overflow-hidden'>
       <motion.div
-        className='bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto text-black'
+        className='bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto custom-scrollbar text-black'
         variants={modalVariants}
         initial='hidden'
         animate='visible'
         exit='exit'
       >
-        {/* Header */}
-        <div className='bg-bold-blue text-white p-6 rounded-t-xl flex justify-between items-center'>
-          <h2 className='text-2xl font-bold'>Request a Quote</h2>
+        {/* Header - Fixed at top */}
+        <div className='bg-bold-blue text-white p-4 sm:p-6 rounded-t-xl flex justify-between items-center sticky top-0 z-10'>
+          <h2 className='text-xl sm:text-2xl font-bold'>Request a Quote</h2>
           <button
             onClick={onClose}
             className='text-white hover:text-primary-yellow transition-colors'
+            aria-label="Close modal"
           >
             <Icon icon='mdi:close' width={24} />
           </button>
         </div>
+        
         {/* Progress bar */}
-        <div className='px-6 pt-6'>
-          <div className='w-full bg-gray-200 h-2 rounded-full mb-4'>
+        <div className='px-4 sm:px-6 pt-4 sm:pt-6 sticky top-[60px] sm:top-[76px] bg-white z-[5]'>
+          <div className='w-full bg-gray-200 h-2 rounded-full mb-3 sm:mb-4'>
             <motion.div
               className='bg-primary-yellow h-2 rounded-full'
               initial={{ width: "0%" }}
@@ -213,7 +224,7 @@ const Quote = ({ isOpen, onClose }) => {
               transition={{ duration: 0.3 }}
             ></motion.div>
           </div>
-          <div className='flex justify-between text-sm text-gray-500 mb-6'>
+          <div className='flex justify-between text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6'>
             <span
               className={step >= 1 ? "text-bold-blue font-medium" : ""}
             >
@@ -236,8 +247,9 @@ const Quote = ({ isOpen, onClose }) => {
             </span>
           </div>
         </div>
+        
         {/* Form content */}
-        <div className='px-6 pb-6 text-black'>
+        <div className='px-4 sm:px-6 pb-6 text-black'>
           <form onSubmit={handleSubmit}>
             <AnimatePresence mode='wait'>
               {step === 1 && (
@@ -249,14 +261,14 @@ const Quote = ({ isOpen, onClose }) => {
                   exit='exit'
                   className='text-black'
                 >
-                  <h3 className='text-xl font-semibold mb-4 text-black'>
+                  <h3 className='text-lg sm:text-xl font-semibold mb-4 text-black'>
                     What type of software do you need?
                   </h3>
-                  <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-6'>
+                  <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4 mb-6'>
                     {projectTypes.map((type) => (
                       <div
                         key={type.id}
-                        className={`border rounded-lg p-4 cursor-pointer transition-all text-black ${
+                        className={`border rounded-lg p-3 sm:p-4 cursor-pointer transition-all text-black ${
                           formData.projectType === type.id
                             ? "border-primary-yellow bg-primary-yellow/10 shadow-md"
                             : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
@@ -271,14 +283,15 @@ const Quote = ({ isOpen, onClose }) => {
                         <div className='flex flex-col items-center text-center'>
                           <Icon
                             icon={type.icon}
-                            width={36}
+                            width={30}
+                            height={30}
                             className={
                               formData.projectType === type.id
                                 ? "text-primary-yellow"
                                 : "text-gray-500"
                             }
                           />
-                          <span className='mt-2 font-medium text-black'>
+                          <span className='mt-2 font-medium text-black text-sm sm:text-base'>
                             {type.name}
                           </span>
                         </div>
@@ -289,7 +302,7 @@ const Quote = ({ isOpen, onClose }) => {
                     <button
                       type='button'
                       onClick={onClose}
-                      className='px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors'
+                      className='px-3 sm:px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors text-sm sm:text-base'
                     >
                       Cancel
                     </button>
@@ -297,18 +310,19 @@ const Quote = ({ isOpen, onClose }) => {
                       type='button'
                       onClick={nextStep}
                       disabled={!formData.projectType}
-                      className={`px-6 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center ${
+                      className={`px-4 sm:px-6 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center text-sm sm:text-base ${
                         !formData.projectType
                           ? "opacity-50 cursor-not-allowed"
                           : ""
                       }`}
                     >
                       Next
-                      <Icon icon='mdi:arrow-right' className='ml-2' />
+                      <Icon icon='mdi:arrow-right' className='ml-2' width={18} height={18} />
                     </button>
                   </div>
                 </motion.div>
               )}
+              
               {step === 2 && (
                 <motion.div
                   key='step2'
@@ -318,7 +332,7 @@ const Quote = ({ isOpen, onClose }) => {
                   exit='exit'
                   className='text-black'
                 >
-                  <h3 className='text-xl font-semibold mb-4 text-black'>
+                  <h3 className='text-lg sm:text-xl font-semibold mb-4 text-black'>
                     What features do you need for your{" "}
                     {
                       projectTypes.find(
@@ -328,11 +342,11 @@ const Quote = ({ isOpen, onClose }) => {
                     ?
                   </h3>
                   <div className='space-y-4 mb-6'>
-                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3'>
                       {getFeatureOptions().map((feature) => (
                         <div
                           key={feature}
-                          className={`border rounded-lg p-3 cursor-pointer transition-all flex items-center text-black ${
+                          className={`border rounded-lg p-2 sm:p-3 cursor-pointer transition-all flex items-center text-black ${
                             formData.features.includes(feature)
                               ? "border-primary-yellow bg-primary-yellow/10"
                               : "border-gray-200 hover:border-gray-300"
@@ -340,7 +354,7 @@ const Quote = ({ isOpen, onClose }) => {
                           onClick={() => handleFeatureToggle(feature)}
                         >
                           <div
-                            className={`w-5 h-5 rounded-full border flex items-center justify-center mr-3 ${
+                            className={`w-5 h-5 rounded-full border flex items-center justify-center mr-2 sm:mr-3 ${
                               formData.features.includes(feature)
                                 ? "border-primary-yellow bg-primary-yellow"
                                 : "border-gray-400"
@@ -354,19 +368,19 @@ const Quote = ({ isOpen, onClose }) => {
                               />
                             )}
                           </div>
-                          <span className='text-black'>{feature}</span>
+                          <span className='text-black text-sm sm:text-base'>{feature}</span>
                         </div>
                       ))}
                     </div>
                     <div className='mt-4'>
-                      <label className='block text-black font-medium mb-2'>
+                      <label className='block text-black font-medium mb-2 text-sm sm:text-base'>
                         Other features or requirements (optional)
                       </label>
                       <textarea
                         name='otherFeatures'
                         value={formData.otherFeatures}
                         onChange={handleChange}
-                        className='w-full resize-none border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black'
+                        className='w-full resize-none border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
                         rows='3'
                         placeholder='Describe any additional features you need...'
                       ></textarea>
@@ -376,22 +390,23 @@ const Quote = ({ isOpen, onClose }) => {
                     <button
                       type='button'
                       onClick={prevStep}
-                      className='px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors flex items-center'
+                      className='px-3 sm:px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors flex items-center text-sm sm:text-base'
                     >
-                      <Icon icon='mdi:arrow-left' className='mr-2' />
+                      <Icon icon='mdi:arrow-left' className='mr-1 sm:mr-2' width={18} height={18} />
                       Back
                     </button>
                     <button
                       type='button'
                       onClick={nextStep}
-                      className='px-6 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center'
+                      className='px-4 sm:px-6 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center text-sm sm:text-base'
                     >
                       Next
-                      <Icon icon='mdi:arrow-right' className='ml-2' />
+                      <Icon icon='mdi:arrow-right' className='ml-1 sm:ml-2' width={18} height={18} />
                     </button>
                   </div>
                 </motion.div>
               )}
+              
               {step === 3 && (
                 <motion.div
                   key='step3'
@@ -401,12 +416,12 @@ const Quote = ({ isOpen, onClose }) => {
                   exit='exit'
                   className='text-black'
                 >
-                  <h3 className='text-xl font-semibold mb-4 text-black'>
+                  <h3 className='text-lg sm:text-xl font-semibold mb-4 text-black'>
                     Project Details
                   </h3>
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-6'>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-6'>
                     <div>
-                      <label className='block text-black font-medium mb-2'>
+                      <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
                         Your Name *
                       </label>
                       <input
@@ -415,12 +430,12 @@ const Quote = ({ isOpen, onClose }) => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className='w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black'
+                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
                         placeholder='Enter your full name'
                       />
                     </div>
                     <div>
-                      <label className='block text-black font-medium mb-2'>
+                      <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
                         Email Address *
                       </label>
                       <input
@@ -429,12 +444,12 @@ const Quote = ({ isOpen, onClose }) => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className='w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black'
+                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
                         placeholder='Enter your email'
                       />
                     </div>
                     <div>
-                      <label className='block text-black font-medium mb-2'>
+                      <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
                         Phone Number
                       </label>
                       <input
@@ -442,12 +457,12 @@ const Quote = ({ isOpen, onClose }) => {
                         name='phone'
                         value={formData.phone}
                         onChange={handleChange}
-                        className='w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black'
+                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
                         placeholder='Enter your phone number'
                       />
                     </div>
                     <div>
-                      <label className='block text-black font-medium mb-2'>
+                      <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
                         Company/Organization
                       </label>
                       <input
@@ -455,19 +470,19 @@ const Quote = ({ isOpen, onClose }) => {
                         name='company'
                         value={formData.company}
                         onChange={handleChange}
-                        className='w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black'
+                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
                         placeholder='Enter your company name'
                       />
                     </div>
                     <div>
-                      <label className='block text-black font-medium mb-2'>
+                      <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
                         Budget Range
                       </label>
                       <select
                         name='budget'
                         value={formData.budget}
                         onChange={handleChange}
-                        className='w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black'
+                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
                       >
                         <option value=''>Select budget range</option>
                         {budgetOptions.map((option) => (
@@ -482,14 +497,14 @@ const Quote = ({ isOpen, onClose }) => {
                       </select>
                     </div>
                     <div>
-                      <label className='block text-black font-medium mb-2'>
+                      <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
                         Timeline
                       </label>
                       <select
                         name='timeline'
                         value={formData.timeline}
                         onChange={handleChange}
-                        className='w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black'
+                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
                       >
                         <option value=''>Select timeline</option>
                         {timelineOptions.map((option) => (
@@ -505,15 +520,15 @@ const Quote = ({ isOpen, onClose }) => {
                     </div>
                   </div>
                   <div className='mb-6'>
-                    <label className='block text-black font-medium mb-2'>
+                    <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
                       Project Requirements
                     </label>
                     <textarea
                       name='requirements'
                       value={formData.requirements}
                       onChange={handleChange}
-                      className='w-full border resize-none border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black'
-                      rows='2'
+                      className='w-full border resize-none border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
+                      rows='3'
                       placeholder='Describe your project requirements in detail...'
                     ></textarea>
                   </div>
@@ -521,21 +536,22 @@ const Quote = ({ isOpen, onClose }) => {
                     <button
                       type='button'
                       onClick={prevStep}
-                      className='px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors flex items-center'
+                      className='px-3 sm:px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors flex items-center text-sm sm:text-base'
                     >
-                      <Icon icon='mdi:arrow-left' className='mr-2' />
+                      <Icon icon='mdi:arrow-left' className='mr-1 sm:mr-2' width={18} height={18} />
                       Back
                     </button>
                     <button
                       type='submit'
-                      className='px-6 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center'
+                      className='px-4 sm:px-6 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center text-sm sm:text-base'
                     >
                       Submit Request
-                      <Icon icon='mdi:check' className='ml-2' />
+                      <Icon icon='mdi:check' className='ml-1 sm:ml-2' width={18} height={18} />
                     </button>
                   </div>
                 </motion.div>
               )}
+              
               {step === 4 && (
                 <motion.div
                   key='step4'
@@ -543,27 +559,28 @@ const Quote = ({ isOpen, onClose }) => {
                   initial='hidden'
                   animate='visible'
                   exit='exit'
-                  className='text-center py-8 text-black'
+                  className='text-center py-6 sm:py-8 text-black'
                 >
-                  <div className='inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-6'>
+                  <div className='inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-green-100 mb-4 sm:mb-6'>
                     <Icon
                       icon='mdi:check'
                       className='text-green-600'
-                      width={32}
+                      width={28}
+                      height={28}
                     />
                   </div>
-                  <h3 className='text-2xl font-bold text-black mb-2'>
+                  <h3 className='text-xl sm:text-2xl font-bold text-black mb-2'>
                     Request Submitted Successfully!
                   </h3>
-                  <p className='text-black mb-8 max-w-md mx-auto'>
+                  <p className='text-black mb-6 sm:mb-8 max-w-md mx-auto text-sm sm:text-base'>
                     Thank you for your interest! Our team will review your
                     request and get back to you within 24-48 hours.
                   </p>
-                  <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
+                  <div className='flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4'>
                     <button
                       type='button'
                       onClick={onClose}
-                      className='px-6 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors'
+                      className='w-full sm:w-auto px-6 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base'
                     >
                       Close
                     </button>
@@ -571,12 +588,13 @@ const Quote = ({ isOpen, onClose }) => {
                       href={`https://wa.me/2348064968725?text=${whatsappMessage}`}
                       target='_blank'
                       rel='noopener noreferrer'
-                      className='px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center'
+                      className='w-full sm:w-auto px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center text-sm sm:text-base'
                     >
                       <Icon
                         icon='mdi:whatsapp'
                         className='mr-2'
-                        width={20}
+                        width={18}
+                        height={18}
                       />
                       Chat on WhatsApp
                     </a>
@@ -585,10 +603,11 @@ const Quote = ({ isOpen, onClose }) => {
               )}
             </AnimatePresence>
           </form>
+          
           {/* WhatsApp fallback option */}
           {step < 4 && (
-            <div className='mt-8 pt-6 border-t border-gray-200 text-center'>
-              <p className='text-black mb-2'>
+            <div className='mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200 text-center'>
+              <p className='text-black mb-2 text-sm sm:text-base'>
                 Don't see what you're looking for? Let's discuss your
                 specific needs.
               </p>
@@ -596,9 +615,9 @@ const Quote = ({ isOpen, onClose }) => {
                 href={`https://wa.me/2348064968725?text=${whatsappMessage}`}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='inline-flex items-center text-green-600 font-medium hover:text-green-700'
+                className='inline-flex items-center text-green-600 font-medium hover:text-green-700 text-sm sm:text-base'
               >
-                <Icon icon='mdi:whatsapp' className='mr-2' width={20} />
+                <Icon icon='mdi:whatsapp' className='mr-2' width={18} height={18} />
                 Chat with us on WhatsApp
               </a>
             </div>

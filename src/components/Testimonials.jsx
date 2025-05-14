@@ -30,15 +30,15 @@ const Testimonials = () => {
       id: 4,
       name: "Dave M.F",
       position: "CEO",
-      company: "ABC Company",
+      company: "Kira Logistics",
       testimonial:
         "The level of customer support from B360 is exceptional. Their team doesn't just provide a product—they partner with you to ensure your success. The platform's flexibility allowed us to customize workflows that perfectly match our unique business processes.",
     },
     {
       id: 5,
-      name: "John Doe",
+      name: "Tobi F.E",
       position: "CTO",
-      company: "ABC Company",
+      company: "DDA Corp",
       testimonial: `B360 helped us break down silos across departments. Before, our teams worked in isolated systems, and it slowed everything down—from project execution to reporting. Now, marketing, sales, and operations are fully connected on one intuitive platform. Communication has improved, tasks are clearly tracked, and decision-making is faster. It's been a total game changer for team collaboration and productivity`,
     },
   ];
