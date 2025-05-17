@@ -23,13 +23,13 @@ const Quote = ({ isOpen, onClose }) => {
     if (isOpen) {
       setStep(1);
       // Prevent body scrolling when modal is open
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     }
-    
+
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     };
   }, [isOpen]);
 
@@ -194,29 +194,29 @@ const Quote = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className='fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-0 sm:p-4 overflow-hidden'>
+    <div className='fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 overflow-hidden'>
       <motion.div
-        className='bg-white rounded-xl shadow-2xl w-full h-full sm:h-auto sm:max-w-4xl sm:max-h-[90vh] overflow-y-auto custom-scrollbar text-black'
+        className='bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[85vh] overflow-y-auto custom-scrollbar text-black'
         variants={modalVariants}
         initial='hidden'
         animate='visible'
         exit='exit'
       >
         {/* Header - Fixed at top */}
-        <div className='bg-bold-blue text-white p-4 sm:p-6 rounded-t-xl flex justify-between items-center sticky top-0 z-10'>
-          <h2 className='text-xl sm:text-2xl font-bold'>Request a Quote</h2>
+        <div className='bg-bold-blue text-white p-4 rounded-t-xl flex justify-between items-center sticky top-0 z-10'>
+          <h2 className='text-lg sm:text-xl font-bold'>Request a Quote</h2>
           <button
             onClick={onClose}
             className='text-white hover:text-primary-yellow transition-colors'
-            aria-label="Close modal"
+            aria-label='Close modal'
           >
-            <Icon icon='mdi:close' width={24} />
+            <Icon icon='mdi:close' width={20} />
           </button>
         </div>
-        
+
         {/* Progress bar */}
-        <div className='px-4 sm:px-6 pt-4 sm:pt-6 sticky top-[60px] sm:top-[76px] bg-white z-[5]'>
-          <div className='w-full bg-gray-200 h-2 rounded-full mb-3 sm:mb-4'>
+        <div className='px-4 pt-3 sticky top-[56px] bg-white z-[5]'>
+          <div className='w-full bg-gray-200 h-2 rounded-full mb-2'>
             <motion.div
               className='bg-primary-yellow h-2 rounded-full'
               initial={{ width: "0%" }}
@@ -224,11 +224,11 @@ const Quote = ({ isOpen, onClose }) => {
               transition={{ duration: 0.3 }}
             ></motion.div>
           </div>
-          <div className='flex justify-between text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6'>
+          <div className='flex justify-between text-xs text-gray-500 mb-3'>
             <span
               className={step >= 1 ? "text-bold-blue font-medium" : ""}
             >
-              Project Type
+              Type
             </span>
             <span
               className={step >= 2 ? "text-bold-blue font-medium" : ""}
@@ -243,13 +243,13 @@ const Quote = ({ isOpen, onClose }) => {
             <span
               className={step >= 4 ? "text-bold-blue font-medium" : ""}
             >
-              Complete
+              Done
             </span>
           </div>
         </div>
-        
+
         {/* Form content */}
-        <div className='px-4 sm:px-6 pb-6 text-black'>
+        <div className='px-4 pb-5 text-black'>
           <form onSubmit={handleSubmit}>
             <AnimatePresence mode='wait'>
               {step === 1 && (
@@ -261,14 +261,14 @@ const Quote = ({ isOpen, onClose }) => {
                   exit='exit'
                   className='text-black'
                 >
-                  <h3 className='text-lg sm:text-xl font-semibold mb-4 text-black'>
+                  <h3 className='text-base sm:text-lg font-semibold mb-3 text-black'>
                     What type of software do you need?
                   </h3>
-                  <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4 mb-6'>
+                  <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 mb-4'>
                     {projectTypes.map((type) => (
                       <div
                         key={type.id}
-                        className={`border rounded-lg p-3 sm:p-4 cursor-pointer transition-all text-black ${
+                        className={`border rounded-lg p-2 cursor-pointer transition-all text-black ${
                           formData.projectType === type.id
                             ? "border-primary-yellow bg-primary-yellow/10 shadow-md"
                             : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
@@ -283,26 +283,26 @@ const Quote = ({ isOpen, onClose }) => {
                         <div className='flex flex-col items-center text-center'>
                           <Icon
                             icon={type.icon}
-                            width={30}
-                            height={30}
+                            width={24}
+                            height={24}
                             className={
                               formData.projectType === type.id
                                 ? "text-primary-yellow"
                                 : "text-gray-500"
                             }
                           />
-                          <span className='mt-2 font-medium text-black text-sm sm:text-base'>
+                          <span className='mt-1 font-medium text-black text-xs sm:text-sm'>
                             {type.name}
                           </span>
                         </div>
                       </div>
                     ))}
                   </div>
-                  <div className='flex justify-between mt-8'>
+                  <div className='flex justify-between mt-4'>
                     <button
                       type='button'
                       onClick={onClose}
-                      className='px-3 sm:px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors text-sm sm:text-base'
+                      className='px-3 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors text-xs sm:text-sm'
                     >
                       Cancel
                     </button>
@@ -310,19 +310,24 @@ const Quote = ({ isOpen, onClose }) => {
                       type='button'
                       onClick={nextStep}
                       disabled={!formData.projectType}
-                      className={`px-4 sm:px-6 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center text-sm sm:text-base ${
+                      className={`px-4 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center text-xs sm:text-sm ${
                         !formData.projectType
                           ? "opacity-50 cursor-not-allowed"
                           : ""
                       }`}
                     >
                       Next
-                      <Icon icon='mdi:arrow-right' className='ml-2' width={18} height={18} />
+                      <Icon
+                        icon='mdi:arrow-right'
+                        className='ml-1'
+                        width={16}
+                        height={16}
+                      />
                     </button>
                   </div>
                 </motion.div>
               )}
-              
+
               {step === 2 && (
                 <motion.div
                   key='step2'
@@ -332,8 +337,8 @@ const Quote = ({ isOpen, onClose }) => {
                   exit='exit'
                   className='text-black'
                 >
-                  <h3 className='text-lg sm:text-xl font-semibold mb-4 text-black'>
-                    What features do you need for your{" "}
+                  <h3 className='text-base sm:text-lg font-semibold mb-3 text-black'>
+                    Features for your{" "}
                     {
                       projectTypes.find(
                         (t) => t.id === formData.projectType
@@ -341,12 +346,12 @@ const Quote = ({ isOpen, onClose }) => {
                     }
                     ?
                   </h3>
-                  <div className='space-y-4 mb-6'>
-                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3'>
+                  <div className='space-y-3 mb-4'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
                       {getFeatureOptions().map((feature) => (
                         <div
                           key={feature}
-                          className={`border rounded-lg p-2 sm:p-3 cursor-pointer transition-all flex items-center text-black ${
+                          className={`border rounded-lg p-2 cursor-pointer transition-all flex items-center text-black ${
                             formData.features.includes(feature)
                               ? "border-primary-yellow bg-primary-yellow/10"
                               : "border-gray-200 hover:border-gray-300"
@@ -354,7 +359,7 @@ const Quote = ({ isOpen, onClose }) => {
                           onClick={() => handleFeatureToggle(feature)}
                         >
                           <div
-                            className={`w-5 h-5 rounded-full border flex items-center justify-center mr-2 sm:mr-3 ${
+                            className={`w-4 h-4 rounded-full border flex items-center justify-center mr-2 ${
                               formData.features.includes(feature)
                                 ? "border-primary-yellow bg-primary-yellow"
                                 : "border-gray-400"
@@ -364,49 +369,61 @@ const Quote = ({ isOpen, onClose }) => {
                               <Icon
                                 icon='mdi:check'
                                 className='text-white'
-                                width={14}
+                                width={10}
                               />
                             )}
                           </div>
-                          <span className='text-black text-sm sm:text-base'>{feature}</span>
+                          <span className='text-black text-xs sm:text-sm'>
+                            {feature}
+                          </span>
                         </div>
                       ))}
                     </div>
-                    <div className='mt-4'>
-                      <label className='block text-black font-medium mb-2 text-sm sm:text-base'>
-                        Other features or requirements (optional)
+                    <div className='mt-3'>
+                      <label className='block text-black font-medium mb-1 text-xs sm:text-sm'>
+                        Other features (optional)
                       </label>
                       <textarea
                         name='otherFeatures'
                         value={formData.otherFeatures}
                         onChange={handleChange}
-                        className='w-full resize-none border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
-                        rows='3'
+                        className='w-full resize-none border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-xs sm:text-sm'
+                        rows='2'
                         placeholder='Describe any additional features you need...'
                       ></textarea>
                     </div>
                   </div>
-                  <div className='flex justify-between mt-8'>
+                  <div className='flex justify-between mt-4'>
                     <button
                       type='button'
                       onClick={prevStep}
-                      className='px-3 sm:px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors flex items-center text-sm sm:text-base'
+                      className='px-3 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors flex items-center text-xs sm:text-sm'
                     >
-                      <Icon icon='mdi:arrow-left' className='mr-1 sm:mr-2' width={18} height={18} />
+                      <Icon
+                        icon='mdi:arrow-left'
+                        className='mr-1'
+                        width={16}
+                        height={16}
+                      />
                       Back
                     </button>
                     <button
                       type='button'
                       onClick={nextStep}
-                      className='px-4 sm:px-6 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center text-sm sm:text-base'
+                      className='px-4 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center text-xs sm:text-sm'
                     >
                       Next
-                      <Icon icon='mdi:arrow-right' className='ml-1 sm:ml-2' width={18} height={18} />
+                      <Icon
+                        icon='mdi:arrow-right'
+                        className='ml-1'
+                        width={16}
+                        height={16}
+                      />
                     </button>
                   </div>
                 </motion.div>
               )}
-              
+
               {step === 3 && (
                 <motion.div
                   key='step3'
@@ -416,12 +433,12 @@ const Quote = ({ isOpen, onClose }) => {
                   exit='exit'
                   className='text-black'
                 >
-                  <h3 className='text-lg sm:text-xl font-semibold mb-4 text-black'>
+                  <h3 className='text-base sm:text-lg font-semibold mb-3 text-black'>
                     Project Details
                   </h3>
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-6'>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-2 mb-4'>
                     <div>
-                      <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
+                      <label className='block text-black font-medium mb-1 text-xs sm:text-sm'>
                         Your Name *
                       </label>
                       <input
@@ -430,12 +447,12 @@ const Quote = ({ isOpen, onClose }) => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
+                        className='w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-xs sm:text-sm'
                         placeholder='Enter your full name'
                       />
                     </div>
                     <div>
-                      <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
+                      <label className='block text-black font-medium mb-1 text-xs sm:text-sm'>
                         Email Address *
                       </label>
                       <input
@@ -444,12 +461,12 @@ const Quote = ({ isOpen, onClose }) => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
+                        className='w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-xs sm:text-sm'
                         placeholder='Enter your email'
                       />
                     </div>
                     <div>
-                      <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
+                      <label className='block text-black font-medium mb-1 text-xs sm:text-sm'>
                         Phone Number
                       </label>
                       <input
@@ -457,12 +474,12 @@ const Quote = ({ isOpen, onClose }) => {
                         name='phone'
                         value={formData.phone}
                         onChange={handleChange}
-                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
+                        className='w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-xs sm:text-sm'
                         placeholder='Enter your phone number'
                       />
                     </div>
                     <div>
-                      <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
+                      <label className='block text-black font-medium mb-1 text-xs sm:text-sm'>
                         Company/Organization
                       </label>
                       <input
@@ -470,19 +487,19 @@ const Quote = ({ isOpen, onClose }) => {
                         name='company'
                         value={formData.company}
                         onChange={handleChange}
-                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
+                        className='w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-xs sm:text-sm'
                         placeholder='Enter your company name'
                       />
                     </div>
                     <div>
-                      <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
+                      <label className='block text-black font-medium mb-1 text-xs sm:text-sm'>
                         Budget Range
                       </label>
                       <select
                         name='budget'
                         value={formData.budget}
                         onChange={handleChange}
-                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base appearance-none'
+                        className='w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-xs sm:text-sm appearance-none'
                       >
                         <option value=''>Select budget range</option>
                         {budgetOptions.map((option) => (
@@ -497,14 +514,14 @@ const Quote = ({ isOpen, onClose }) => {
                       </select>
                     </div>
                     <div>
-                      <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
+                      <label className='block text-black font-medium mb-1 text-xs sm:text-sm'>
                         Timeline
                       </label>
                       <select
                         name='timeline'
                         value={formData.timeline}
                         onChange={handleChange}
-                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base appearance-none'
+                        className='w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-xs sm:text-sm appearance-none'
                       >
                         <option value=''>Select timeline</option>
                         {timelineOptions.map((option) => (
@@ -519,39 +536,49 @@ const Quote = ({ isOpen, onClose }) => {
                       </select>
                     </div>
                   </div>
-                  <div className='mb-6'>
-                    <label className='block text-black font-medium mb-1 sm:mb-2 text-sm sm:text-base'>
+                  <div className='mb-4'>
+                    <label className='block text-black font-medium mb-1 text-xs sm:text-sm'>
                       Project Requirements
                     </label>
                     <textarea
                       name='requirements'
                       value={formData.requirements}
                       onChange={handleChange}
-                      className='w-full border resize-none border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
-                      rows='3'
-                      placeholder='Describe your project requirements in detail...'
+                      className='w-full border resize-none border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-xs sm:text-sm'
+                      rows='2'
+                      placeholder='Describe your project requirements...'
                     ></textarea>
                   </div>
-                  <div className='flex justify-between mt-8'>
+                  <div className='flex justify-between mt-4'>
                     <button
                       type='button'
                       onClick={prevStep}
-                      className='px-3 sm:px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors flex items-center text-sm sm:text-base'
+                      className='px-3 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors flex items-center text-xs sm:text-sm'
                     >
-                      <Icon icon='mdi:arrow-left' className='mr-1 sm:mr-2' width={18} height={18} />
+                      <Icon
+                        icon='mdi:arrow-left'
+                        className='mr-1'
+                        width={16}
+                        height={16}
+                      />
                       Back
                     </button>
                     <button
                       type='submit'
-                      className='px-4 sm:px-6 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center text-sm sm:text-base'
+                      className='px-4 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center text-xs sm:text-sm'
                     >
-                      Submit Request
-                      <Icon icon='mdi:check' className='ml-1 sm:ml-2' width={18} height={18} />
+                      Submit
+                      <Icon
+                        icon='mdi:check'
+                        className='ml-1'
+                        width={16}
+                        height={16}
+                      />
                     </button>
                   </div>
                 </motion.div>
               )}
-              
+
               {step === 4 && (
                 <motion.div
                   key='step4'
@@ -559,28 +586,28 @@ const Quote = ({ isOpen, onClose }) => {
                   initial='hidden'
                   animate='visible'
                   exit='exit'
-                  className='text-center py-6 sm:py-8 text-black'
+                  className='text-center py-4 text-black'
                 >
-                  <div className='inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-green-100 mb-4 sm:mb-6'>
+                  <div className='inline-flex items-center justify-center w-12 h-12 rounded-full bg-green-100 mb-3'>
                     <Icon
                       icon='mdi:check'
                       className='text-green-600'
-                      width={28}
-                      height={28}
+                      width={24}
+                      height={24}
                     />
                   </div>
-                  <h3 className='text-xl sm:text-2xl font-bold text-black mb-2'>
-                    Request Submitted Successfully!
+                  <h3 className='text-lg sm:text-xl font-bold text-black mb-2'>
+                    Request Submitted!
                   </h3>
-                  <p className='text-black mb-6 sm:mb-8 max-w-md mx-auto text-sm sm:text-base'>
+                  <p className='text-black mb-4 max-w-md mx-auto text-xs sm:text-sm'>
                     Thank you for your interest! Our team will review your
                     request and get back to you within 24-48 hours.
                   </p>
-                  <div className='flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4'>
+                  <div className='flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3'>
                     <button
                       type='button'
                       onClick={onClose}
-                      className='w-full sm:w-auto px-6 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base'
+                      className='w-full sm:w-auto px-4 py-2 bg-bold-blue text-white rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-sm'
                     >
                       Close
                     </button>
@@ -588,13 +615,13 @@ const Quote = ({ isOpen, onClose }) => {
                       href={`https://wa.me/2348064968725?text=${whatsappMessage}`}
                       target='_blank'
                       rel='noopener noreferrer'
-                      className='w-full sm:w-auto px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center text-sm sm:text-base'
+                      className='w-full sm:w-auto px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center text-xs sm:text-sm'
                     >
                       <Icon
                         icon='mdi:whatsapp'
-                        className='mr-2'
-                        width={18}
-                        height={18}
+                        className='mr-1'
+                        width={16}
+                        height={16}
                       />
                       Chat on WhatsApp
                     </a>
@@ -603,21 +630,25 @@ const Quote = ({ isOpen, onClose }) => {
               )}
             </AnimatePresence>
           </form>
-          
+
           {/* WhatsApp fallback option */}
           {step < 4 && (
-            <div className='mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200 text-center'>
-              <p className='text-black mb-2 text-sm sm:text-base'>
-                Don't see what you're looking for? Let's discuss your
-                specific needs.
+            <div className='mt-4 pt-3 border-t border-gray-200 text-center'>
+              <p className='text-black mb-1 text-xs sm:text-sm'>
+                Don't see what you're looking for?
               </p>
               <a
                 href={`https://wa.me/2348064968725?text=${whatsappMessage}`}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='inline-flex items-center text-green-600 font-medium hover:text-green-700 text-sm sm:text-base'
+                className='inline-flex items-center text-green-600 font-medium hover:text-green-700 text-xs sm:text-sm'
               >
-                <Icon icon='mdi:whatsapp' className='mr-2' width={18} height={18} />
+                <Icon
+                  icon='mdi:whatsapp'
+                  className='mr-1'
+                  width={16}
+                  height={16}
+                />
                 Chat with us on WhatsApp
               </a>
             </div>

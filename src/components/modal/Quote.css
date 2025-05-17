@@ -1,6 +1,6 @@
 /* Custom scrollbar styles */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
+  width: 2px; /* Already very tiny at 2px */
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
@@ -27,6 +27,6 @@
 /* For mobile devices - hide scrollbar but keep functionality */
 @media (max-width: 640px) {
   .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
+    width: 1px; /* Even smaller on mobile */
   }
 }
