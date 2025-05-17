@@ -9,19 +9,19 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #c4c4c4;
+  background: rgba(25, 59, 103, 0.6); /* Bold blue with transparency */
   border-radius: 10px;
   transition: background 0.3s ease;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #a0a0a0;
+  background: rgba(25, 59, 103, 0.8); /* Darker on hover */
 }
 
 /* For Firefox */
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #c4c4c4 #f1f1f1;
+  scrollbar-color: rgba(25, 59, 103, 0.6) #f1f1f1;
 }
 
 /* For mobile devices - hide scrollbar but keep functionality */

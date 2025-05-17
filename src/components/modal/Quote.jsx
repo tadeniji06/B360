@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
-import "./Quote.css"; // We'll create this file for custom scrollbar
+import "./Quote.css";
 
 const Quote = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(1);
@@ -194,9 +194,9 @@ const Quote = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className='fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-2 sm:p-4 overflow-hidden'>
+    <div className='fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-0 sm:p-4 overflow-hidden'>
       <motion.div
-        className='bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto custom-scrollbar text-black'
+        className='bg-white rounded-xl shadow-2xl w-full h-full sm:h-auto sm:max-w-4xl sm:max-h-[90vh] overflow-y-auto custom-scrollbar text-black'
         variants={modalVariants}
         initial='hidden'
         animate='visible'
@@ -482,7 +482,7 @@ const Quote = ({ isOpen, onClose }) => {
                         name='budget'
                         value={formData.budget}
                         onChange={handleChange}
-                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
+                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base appearance-none'
                       >
                         <option value=''>Select budget range</option>
                         {budgetOptions.map((option) => (
@@ -504,7 +504,7 @@ const Quote = ({ isOpen, onClose }) => {
                         name='timeline'
                         value={formData.timeline}
                         onChange={handleChange}
-                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base'
+                        className='w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-bold-blue focus:border-transparent text-black text-sm sm:text-base appearance-none'
                       >
                         <option value=''>Select timeline</option>
                         {timelineOptions.map((option) => (
