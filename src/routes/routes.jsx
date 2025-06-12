@@ -5,6 +5,8 @@ import About from "../screens/About";
 import Contact from "../screens/Contact";
 import Services from "../screens/Services";
 import NotFound from "../screens/NotFound";
+import Blog from "../screens/Blog";
+import ViewBlog from "../components/ViewBlog";
 
 const router = createBrowserRouter([
   {
@@ -16,9 +18,9 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-       path: "*",
-       element: <NotFound />,
-     },
+        path: "*",
+        element: <NotFound />,
+      },
       {
         path: "/about",
         element: <About />,
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
         path: "/contact",
         element: <Contact />,
       },
+      {
+        path: "/blog",
+        element: <Blog />,
+      },
+      {
+        path: "/blog/:slug",
+        element: <ViewBlog />,
+      },
     ],
   },
 ]);
@@ -38,4 +48,5 @@ const router = createBrowserRouter([
 const AppRoutes = () => {
   return <RouterProvider router={router} />;
 };
+
 export default AppRoutes;
