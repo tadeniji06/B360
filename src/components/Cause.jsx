@@ -14,7 +14,7 @@ const Cause = () => {
           {/* Content Section */}
           <div className='md:w-2/3'>
             <p className='text-gray-700 leading-relaxed text-base sm:text-lg'>
-              At Business360 (B360), our mission is to empower businesses in
+              At Tech360 (T360), our mission is to empower businesses in
               emerging markets—especially across Africa—by providing
               intelligent, adaptable, and affordable software solutions. We
               design tools that simplify everyday operations, foster

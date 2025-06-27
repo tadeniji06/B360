@@ -41,7 +41,7 @@ const GetStarted = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Join over 20+ businesses using B360 today
+            Join over 20+ businesses using Tech360 today
           </motion.p>
           
         <Link to={'/contact'}>

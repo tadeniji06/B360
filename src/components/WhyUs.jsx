@@ -60,7 +60,7 @@ const WhyUs = () => {
             animate={inView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            WHY B360
+            WHY Tech360
           </motion.span>
           <motion.h2
             className='text-2xl sm:text-3xl md:text-4xl font-bold mt-2 leading-tight max-w-3xl mx-auto'
