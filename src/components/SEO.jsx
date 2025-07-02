@@ -1,67 +1,66 @@
-import { Helmet } from 'react-helmet';
-import PropTypes from 'prop-types';
+import { Helmet } from "react-helmet";
+import PropTypes from "prop-types";
 
-/**
- * Reusable SEO component for managing all meta tags
- */
 const SEO = ({
-  title,
-  description,
-  image,
-  type = 'website',
-  url,
-  canonicalUrl,
-  children,
+	title,
+	description,
+	image,
+	type = "website",
+	url,
+	canonicalUrl,
+	children,
 }) => {
-  // Default values
-  const siteName = 'Business 360';
-  const defaultDescription = 'Business Automation with B360';
-  const defaultImage = 'https://theb360.com/logo.png'; 
-  const baseUrl = 'https://theb360.com';
-  
-  // Use provided values or fallbacks
-  const metaTitle = title ? `${title} | ${siteName}` : siteName;
-  const metaDescription = description?.slice(0, 150) || defaultDescription;
-  const metaImage = image || defaultImage;
-  const metaUrl = url ? `${baseUrl}${url}` : baseUrl;
-  const canonical = canonicalUrl ? `${baseUrl}${canonicalUrl}` : metaUrl;
+	// Default values
+	const siteName = "Business 360";
+	const defaultDescription = "Business Automation with B360";
+	const defaultImage = "https://tech360online.com/logo.svg";
+	const baseUrl = "https://tech360online.com";
 
-  return (
-    <Helmet>
-      {/* Basic Meta Tags */}
-      <title>{metaTitle}</title>
-      <meta name="description" content={metaDescription} />
-      <link rel="canonical" href={canonical} />
+	const metaTitle = title ? `${title} | ${siteName}` : siteName;
+	const metaDescription =
+		description?.slice(0, 150) || defaultDescription;
+	const metaImage = image || defaultImage;
+	const metaUrl = url ? `${baseUrl}${url}` : baseUrl;
+	const canonical = canonicalUrl
+		? `${baseUrl}${canonicalUrl}`
+		: metaUrl;
 
-      {/* Open Graph / Facebook */}
-      <meta property="og:type" content={type} />
-      <meta property="og:url" content={metaUrl} />
-      <meta property="og:title" content={metaTitle} />
-      <meta property="og:description" content={metaDescription} />
-      <meta property="og:image" content={metaImage} />
-      <meta property="og:site_name" content={siteName} />
+	return (
+		<Helmet>
+			{/* Basic Meta Tags */}
+			<title>{metaTitle}</title>
+			<meta name='description' content={metaDescription} />
+			<link rel='canonical' href={canonical} />
 
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={metaUrl} />
-      <meta name="twitter:title" content={metaTitle} />
-      <meta name="twitter:description" content={metaDescription} />
-      <meta name="twitter:image" content={metaImage} />
+			{/* Open Graph / Facebook */}
+			<meta property='og:type' content={type} />
+			<meta property='og:url' content={metaUrl} />
+			<meta property='og:title' content={metaTitle} />
+			<meta property='og:description' content={metaDescription} />
+			<meta property='og:image' content={metaImage} />
+			<meta property='og:site_name' content={siteName} />
 
-      {/* Additional meta tags can be passed as children */}
-      {children}
-    </Helmet>
-  );
+			{/* Twitter */}
+			<meta name='twitter:card' content='summary_large_image' />
+			<meta name='twitter:url' content={metaUrl} />
+			<meta name='twitter:title' content={metaTitle} />
+			<meta name='twitter:description' content={metaDescription} />
+			<meta name='twitter:image' content={metaImage} />
+
+			{/* Additional meta tags can be passed as children */}
+			{children}
+		</Helmet>
+	);
 };
 
 SEO.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  image: PropTypes.string,
-  type: PropTypes.string,
-  url: PropTypes.string,
-  canonicalUrl: PropTypes.string,
-  children: PropTypes.node,
+	title: PropTypes.string,
+	description: PropTypes.string,
+	image: PropTypes.string,
+	type: PropTypes.string,
+	url: PropTypes.string,
+	canonicalUrl: PropTypes.string,
+	children: PropTypes.node,
 };
 
 export default SEO;
