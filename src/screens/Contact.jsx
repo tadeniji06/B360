@@ -260,7 +260,7 @@ const Contact = () => {
 											Our office location
 										</p>
 										<p className='text-gray-800 mt-2'>
-											426a Damilola Fashade street, Omole Phase 1{" "}
+											426a Damilola Fashade Street, Omole Phase 1{" "}
 											<br />
 											Lagos, Nigeria
 										</p>
