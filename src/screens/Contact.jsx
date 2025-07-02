@@ -61,8 +61,8 @@ const Contact = () => {
 							delay: 0.4,
 						}}
 					>
-						Have questions or need assistance? We
-						are here to help you.
+						Have questions or need assistance? We are here to help
+						you.
 					</motion.p>
 				</div>
 			</motion.div>
@@ -225,9 +225,7 @@ const Contact = () => {
 										<h3 className='text-lg font-semibold text-gray-800'>
 											Email
 										</h3>
-										<p className='text-gray-600'>
-											Send us an email
-										</p>
+										<p className='text-gray-600'>Send us an email</p>
 										<a
 											href='mailto:info@b360.com'
 											className='text-blue-600 font-medium hover:underline mt-2 inline-block'
@@ -262,8 +260,8 @@ const Contact = () => {
 											Our office location
 										</p>
 										<p className='text-gray-800 mt-2'>
-											426a titilayo adedoyin
-											street, omole phase 1 <br />
+											426a Damilola Fashade street, Omole Phase 1{" "}
+											<br />
 											Lagos, Nigeria
 										</p>
 									</div>
