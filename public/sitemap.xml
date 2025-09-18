@@ -12,6 +12,18 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+   <url>
+    <loc>https://tech360online.com/services</loc>
+    <lastmod>2024-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+   <url>
+    <loc>https://tech360online.com/contact</loc>
+    <lastmod>2024-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
   <url>
     <loc>https://tech360online.com/about</loc>
     <lastmod>2024-06-21</lastmod>
