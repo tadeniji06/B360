@@ -124,7 +124,7 @@ const Footer = () => {
 			{/* Copyright */}
 			<div className='mt-8 pt-6 border-t border-blue-700 text-center md:text-left'>
 				<p className='text-sm text-blue-100'>
-					© 2025 Business Suite (B360). All right
+					© 2025 BTech (B360). All right
 					reserved.
 				</p>
 			</div>
